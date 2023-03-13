@@ -9,9 +9,6 @@
                     {{ $title }}
                 </h2>
             </div>
-            <div class="col-lg-6">
-            	<a href="{{ route('post.create') }}" class="btn btn-primary rounded float-right">Create Post</a>
-            </div>
         </div>
     </x-slot>
 
@@ -55,8 +52,8 @@
 				                    {{ $post->category->name }}
 				                </td>
 				                <td class="px-6 py-4">
-				                    <a href="{{ route('post.edit', ['id' => $post->id]) }}" class="btn btn-primary">Edit</a>
-				                    <a href="{{ route('post.destroy', ['id' => $post->id]) }}" class="btn btn-danger">Trash</a>
+				                    <a href="{{ route('post.restore', ['id' => $post->id]) }}" class="btn btn-success">Restore</a>
+				                    <a href="{{ route('post.kill', ['id' => $post->id]) }}" class="btn btn-danger">Permanently Delete</a>
 				                </td>
 				            </tr>
 				            @endforeach

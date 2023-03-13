@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Session;
 
 class PostsController extends Controller
@@ -31,11 +32,12 @@ class PostsController extends Controller
     {
         $title = 'Create Post';
         $categories = Category::all();
+        $tags = Tag::all();
         if ($categories->count() == 0) {
             Session::flash('warning', 'Plase Add At Least One Category Before Adding The Post!');
             return redirect()->back();
         }
-        return view('admin.posts.create')->with(compact('title','categories'));
+        return view('admin.posts.create')->with(compact('title','categories','tags'));
     }
 
     /**
@@ -50,7 +52,8 @@ class PostsController extends Controller
             'title' => 'required|max:255',
             'feature_image' => 'required|image',
             'content' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'tags' => 'required'
         ]);
         
         $feature_image = $request->feature_image;
@@ -64,6 +67,8 @@ class PostsController extends Controller
             'content' => $request->content,
             'category_id' => $request->category_id
         ]);
+        $post->tags()->attach($request->tags);
+        
         Session::flash('success', 'Post Created Successfuly!');
 
         return redirect('/admin/posts');
@@ -88,7 +93,11 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title = 'Edit Post';
+        $post = Post::find($id);
+        $categories = Category::all(); 
+
+        return view('admin.posts.edit')->with(compact('title','post','categories'));
     }
 
     /**
@@ -100,7 +109,28 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'content' => 'required',
+            'category_id' => 'required'
+        ]);
+
+        $post = Post::find($id);
+
+        if ($request->hasFile('feature_image')) {
+            $feature_image = $request->feature_image;
+            $feature_image_new_name = time().$feature_image->getClientOriginalName();
+            $feature_image->move('uploads/posts', $feature_image_new_name);
+            $post->feature_image = $feature_image_new_name;
+        }
+
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->category_id = $request->category_id;
+        $post->save();
+
+        Session::flash('success', 'Post Update Successfuly!');
+        return redirect()->route('posts');
     }
 
     /**
@@ -109,8 +139,38 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) 
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+
+        Session::flash('error', 'Your Post Just Trashed!');
+        return redirect()->back();
+    }
+
+    public function trash()
+    {
+        $title = 'Trashed Posts';
+        $posts = Post::onlyTrashed()->get();
+
+        return view('admin/posts/trash')->with(compact('title','posts'));
+    }
+
+    public function kill($id)
+    {
+       $post = Post::withTrashed()->where('id', $id)->first();
+       $post->forceDelete();
+
+       Session::flash('error', 'Post Delete Permanently!');
+       return redirect()->back();
+    }
+
+    public function restore($id)
+    {
+        $post = Post::withTrashed()->where('id', $id)->first();
+        $post->restore();
+
+        Session::flash('success', 'Post Restore Successfuly!');
+        return redirect()->route('posts');
     }
 }

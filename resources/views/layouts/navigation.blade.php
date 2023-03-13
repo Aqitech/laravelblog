@@ -18,8 +18,14 @@
                     <x-nav-link :href="route('posts')" :active="request()->routeIs('posts')">
                         {{ __('Posts') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('posts.trashed')" :active="request()->routeIs('posts.trashed')">
+                        {{ __('All Trashed Posts') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('category')" :active="request()->routeIs('category')">
                         {{ __('Categories') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('tags')" :active="request()->routeIs('tags')">
+                        {{ __('Tags') }}
                     </x-nav-link>
                 </div>
             </div>

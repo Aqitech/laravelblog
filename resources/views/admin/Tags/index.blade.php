@@ -10,7 +10,7 @@
                 </h2>
             </div>
             <div class="col-lg-6">
-            	<a href="{{ route('post.create') }}" class="btn btn-primary rounded float-right">Create Post</a>
+            	<a href="{{ route('tag.create') }}" class="btn btn-primary rounded float-right">Create Tag</a>
             </div>
         </div>
     </x-slot>
@@ -26,13 +26,7 @@
 				                    #
 				                </th>
 				                <th scope="col" class="px-6 py-3">
-				                    Image
-				                </th>
-				                <th scope="col" class="px-6 py-3">
-				                    Title
-				                </th>
-				                <th scope="col" class="px-6 py-3">
-				                    Category
+				                    Name
 				                </th>
 				                <th scope="col" class="px-6 py-3">
 				                    Action
@@ -40,25 +34,19 @@
 				            </tr>
 				        </thead>
 				        <tbody>
-				        	@foreach($posts as $post)
+				            @foreach($tags as $tag)
 				            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
 				                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-				                    {{ $post->id }}
+				                    {{ $tag->id }}
 				                </th>
 				                <td class="px-6 py-4">
-				                    <img src="{{ $post->feature_image }}" alt="{{ $post->title }}" width="50" height="50">
+				                    {{ $tag->tag }}
 				                </td>
 				                <td class="px-6 py-4">
-				                    {{ $post->title }}
+				                    <a href="{{ route('tag.edit', ['id' => $tag->id]) }}" class="btn btn-primary">Edit</a>
+				                    <a href="{{ route('tag.destroy', ['id' => $tag->id]) }}" class="btn btn-danger">Delete</a>
 				                </td>
-				                <td class="px-6 py-4">
-				                    {{ $post->category->name }}
-				                </td>
-				                <td class="px-6 py-4">
-				                    <a href="{{ route('post.edit', ['id' => $post->id]) }}" class="btn btn-primary">Edit</a>
-				                    <a href="{{ route('post.destroy', ['id' => $post->id]) }}" class="btn btn-danger">Trash</a>
-				                </td>
-				            </tr>
+				            </tr>	
 				            @endforeach
 				        </tbody>
 				    </table>
