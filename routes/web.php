@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\TagsController;
@@ -26,6 +27,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+    Route::post('/settings/update', [SettingsController::class, 'update'])->name('settings.update');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

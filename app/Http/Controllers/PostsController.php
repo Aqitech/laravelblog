@@ -33,8 +33,8 @@ class PostsController extends Controller
         $title = 'Create Post';
         $categories = Category::all();
         $tags = Tag::all();
-        if ($categories->count() == 0) {
-            Session::flash('warning', 'Plase Add At Least One Category Before Adding The Post!');
+        if ($categories->count() == 0 || $tags->count() == 0) {
+            Session::flash('warning', 'Plase Add At Least One Category And Tag Before Adding The Post!');
             return redirect()->back();
         }
         return view('admin.posts.create')->with(compact('title','categories','tags'));
@@ -48,6 +48,7 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $this->validate($request, [
             'title' => 'required|max:255',
             'feature_image' => 'required|image',
