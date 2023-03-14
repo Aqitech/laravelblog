@@ -27,6 +27,14 @@
                     <x-nav-link :href="route('tags')" :active="request()->routeIs('tags')">
                         {{ __('Tags') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                        {{ __('Profile') }}
+                    </x-nav-link>
+                    @if(Auth::user()->admin)
+                    <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                        {{ __('Users') }}
+                    </x-nav-link>
+                    @endif
                 </div>
             </div>
 

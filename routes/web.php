@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\TagsController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+    Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+    Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::get('/user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::get('/user/permission/{id}', [UserController::class, 'permission'])->name('user.permission');
 
     Route::get('/posts', [PostsController::class, 'index'])->name('posts');
     Route::get('/posts/trashed', [PostsController::class, 'trash'])->name('posts.trashed');

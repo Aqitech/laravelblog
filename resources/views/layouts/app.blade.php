@@ -43,6 +43,9 @@
         </div>
     </body>
     <script>
+        $('#relative').on('click', function() {
+            $('#absolute').show();
+        });
         $(document).ready(function() {
             $('#post_content').summernote();
         });

@@ -34,20 +34,26 @@
 				            </tr>
 				        </thead>
 				        <tbody>
-				            @foreach($categories as $category)
-				            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-				                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-				                    {{ $category->id }}
-				                </th>
-				                <td class="px-6 py-4">
-				                    {{ $category->name }}
-				                </td>
-				                <td class="px-6 py-4">
-				                    <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="btn btn-primary">Edit</a>
-				                    <a href="{{ route('category.destroy', ['id' => $category->id]) }}" class="btn btn-danger">Delete</a>
-				                </td>
-				            </tr>	
-				            @endforeach
+				        	@if($categories->count() > 0)
+					            @foreach($categories as $category)
+					            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+					                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+					                    {{ $category->id }}
+					                </th>
+					                <td class="px-6 py-4">
+					                    {{ $category->name }}
+					                </td>
+					                <td class="px-6 py-4">
+					                    <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="btn btn-primary">Edit</a>
+					                    <a href="{{ route('category.destroy', ['id' => $category->id]) }}" class="btn btn-danger">Delete</a>
+					                </td>
+					            </tr>	
+					            @endforeach
+					        @else
+						        <tr>
+						        	<th colspan="5" class="text-center">No Categories Available</th>
+						        </tr>
+					        @endif
 				        </tbody>
 				    </table>
                 </div>

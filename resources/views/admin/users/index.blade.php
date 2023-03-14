@@ -10,7 +10,7 @@
                 </h2>
             </div>
             <div class="col-lg-6">
-            	<a href="{{ route('post.create') }}" class="btn btn-primary rounded float-right">Create Post</a>
+            	<a href="{{ route('user.create') }}" class="btn btn-primary rounded float-right">Create User</a>
             </div>
         </div>
     </x-slot>
@@ -26,13 +26,10 @@
 				                    #
 				                </th>
 				                <th scope="col" class="px-6 py-3">
-				                    Image
+				                    Name
 				                </th>
 				                <th scope="col" class="px-6 py-3">
-				                    Title
-				                </th>
-				                <th scope="col" class="px-6 py-3">
-				                    Category
+				                    Permission
 				                </th>
 				                <th scope="col" class="px-6 py-3">
 				                    Action
@@ -40,30 +37,31 @@
 				            </tr>
 				        </thead>
 				        <tbody>
-				        	@if($posts->count() > 0)
-					        	@foreach($posts as $post)
+				        	@if($users->count() > 0)
+					        	@foreach($users as $user)
 					            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
 					                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-					                    {{ $post->id }}
+					                    {{ $user->id }}
 					                </th>
 					                <td class="px-6 py-4">
-					                    <img src="{{ $post->feature_image }}" alt="{{ $post->title }}" width="50" height="50">
+					                    {{ $user->name }}
 					                </td>
 					                <td class="px-6 py-4">
-					                    {{ $post->title }}
+					                	@if($user->admin)
+					                	<a href="{{ route('user.permission',['id' => $user->id]) }}" class="btn btn-primary">Admin</a>
+					                	@else
+					                	<a href="{{ route('user.permission',['id' => $user->id]) }}" class="btn btn-success">Author</a>
+					                	@endif
 					                </td>
 					                <td class="px-6 py-4">
-					                    {{ $post->category->name }}
-					                </td>
-					                <td class="px-6 py-4">
-					                    <a href="{{ route('post.edit', ['id' => $post->id]) }}" class="btn btn-primary">Edit</a>
-					                    <a href="{{ route('post.destroy', ['id' => $post->id]) }}" class="btn btn-danger">Trash</a>
+					                    <a href="{{ route('user.edit', ['id' => $user->id]) }}" class="btn btn-primary">Edit</a>
+					                    <a href="{{ route('user.destroy', ['id' => $user->id]) }}" class="btn btn-danger">Delete</a>
 					                </td>
 					            </tr>
 					            @endforeach
 					        @else
 					        	<tr>
-						        	<th colspan="5" class="text-center">No Posts Available</th>
+						        	<th colspan="5" class="text-center">No Users Available</th>
 						        </tr>
 					        @endif
 				        </tbody>
