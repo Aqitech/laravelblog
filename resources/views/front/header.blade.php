@@ -3,7 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Seosight - Index Page</title>
+    <title>{{ $title }} | {{ $site_settings->site_name }}</title>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('front/css/fonts.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('front/css/crumina-fonts.css') }}">
@@ -44,7 +44,7 @@
                 <div class="header-content-wrapper">
                     <div class="logo">
                         <div class="logo-text">
-                            <div class="logo-title">LARAVEL'S BLOG</div>
+                            <div class="logo-title">{{ $site_settings->site_name }}</div>
                         </div>
                     </div>
 
@@ -59,21 +59,11 @@
                             </span>
                         </a>
                         <ul class="primary-menu-menu" style="overflow: hidden;">
+                            @foreach($menu_categories as $category)
                             <li class="">
-                                <a href="">NEWS</a>
+                                <a href="">{{ $category->name }}</a>
                             </li>
-                            <li class="">
-                                <a href="">VIDEOS</a>
-                            </li>
-                            <li class="">
-                                <a href="">DISCUSSIONS</a>
-                            </li>
-                            <li class="">
-                                <a href="">TUTORIALS</a>
-                            </li>
-                            <li class="">
-                                <a href="">NEWSLETTER</a>
-                            </li>
+                            @endforeach
                         </ul>
                     </nav>
                     <ul class="nav-add">

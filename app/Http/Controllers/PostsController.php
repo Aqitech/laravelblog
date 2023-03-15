@@ -48,7 +48,6 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $this->validate($request, [
             'title' => 'required|max:255',
             'feature_image' => 'required|image',
