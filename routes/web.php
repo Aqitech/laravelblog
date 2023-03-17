@@ -21,7 +21,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
-Route::get('/{slug}', [FrontEndController::class, 'singlePost'])->name('post.single');
+Route::get('/post/{slug}', [FrontEndController::class, 'singlePost'])->name('post.single');
+Route::get('/category/{id}', [FrontEndController::class, 'singleCategory'])->name('category.single');
+Route::get('/tag/{id}', [FrontEndController::class, 'singleTag'])->name('tag.single');
+Route::get('/query', [FrontEndController::class, 'query'])->name('query');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/dashboard', function () {

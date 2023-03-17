@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Settings;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 
 class FrontEndController extends Controller
 {
@@ -30,7 +31,46 @@ class FrontEndController extends Controller
         $title = $singlePost->title;
         $site_settings = Settings::first();
         $menu_categories = Category::take(5)->get();
+        $next_id = Post::where('id','>',$singlePost->id)->min('id');
+        $next = Post::find($next_id);
+        $prev_id = Post::where('id','<',$singlePost->id)->max('id');
+        $prev = Post::find($prev_id);
+        $tags = Tag::all();
 
-        return view('single')->with(compact('singlePost','title','site_settings','menu_categories'));
+        return view('single')->with(compact('singlePost','title','site_settings','menu_categories','prev','next','tags'));
+    }
+
+    public function singleCategory($id)
+    {
+        $singleCategory = Category::find($id);
+        $title = $singleCategory->title;
+        $site_settings = Settings::first();
+        $menu_categories = Category::take(5)->get();
+        $tags = Tag::all();
+
+        return view('category')->with(compact('singleCategory','title','site_settings','menu_categories','tags'));
+    }
+
+    public function singleTag($id)
+    {
+        $singleTag  = Tag::find($id);
+        $title = $singleTag->tag;
+        $site_settings = Settings::first();
+        $menu_categories = Category::take(5)->get();
+        $tags = Tag::all();
+
+        return view('tag')->with(compact('singleTag','title','site_settings','menu_categories','tags'));
+    }
+
+    public function query()
+    {
+        $query = request('query');
+        $posts = Post::where('title','like','%'. request('query') .'%')->get();
+        $title = 'Search Result For' . request('query');
+        $site_settings = Settings::first();
+        $menu_categories = Category::take(5)->get();
+        $tags = Tag::all();
+
+        return view('result')->with(compact('query','posts','title','site_settings','menu_categories','tags'));
     }
 }

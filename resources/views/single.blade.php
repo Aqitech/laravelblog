@@ -108,31 +108,36 @@
                 </div>
 
                 <div class="pagination-arrow">
-
-                    <a href="#" class="btn-prev-wrap">
-                        <svg class="btn-prev">
-                            <use xlink:href="#arrow-left"></use>
-                        </svg>
-                        <div class="btn-content">
-                            <div class="btn-content-title">Next Post</div>
-                            <p class="btn-content-subtitle">Claritas Est Etiam Processus</p>
-                        </div>
-                    </a>
-
-                    <a href="#" class="btn-next-wrap">
+                    @if($prev)
+                    <a href="{{ route('post.single',['slug' => $prev->slug]) }}" class="btn-prev-wrap">
                         <div class="btn-content">
                             <div class="btn-content-title">Previous Post</div>
-                            <p class="btn-content-subtitle">Duis Autem Velius</p>
+                            <p class="btn-content-subtitle">{{ $prev->title }}</p>
                         </div>
                         <svg class="btn-next">
                             <use xlink:href="#arrow-right"></use>
                         </svg>
                     </a>
-
+                    @endif
+                    @if($next)
+                    <a href="{{ route('post.single',['slug' => $next->slug]) }}" class="btn-next-wrap">
+                        <svg class="btn-prev">
+                            <use xlink:href="#arrow-left"></use>
+                        </svg>
+                        <div class="btn-content">
+                            <div class="btn-content-title">Next Post</div>
+                            <p class="btn-content-subtitle">{{ $next->title }}</p>
+                        </div>
+                    </a>
+                    @endif
                 </div>
-
+                <div class="row">
+                    <div class="socials text-center">
+                        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                        <div class="addthis_inline_share_toolbox"></div>
+                    </div>
+                </div>
                 <div class="comments">
-
                     <div class="heading text-center">
                         <h4 class="h1 heading-title">Comments</h4>
                         <div class="heading-line">
@@ -140,44 +145,15 @@
                             <span class="long-line"></span>
                         </div>
                     </div>
+                    @include('front.discus')
                 </div>
-
-                <div class="row">
-
-                </div>
-
-
             </div>
 
             <!-- End Post Details -->
 
             <!-- Sidebar-->
 
-            <div class="col-lg-12">
-                <aside aria-label="sidebar" class="sidebar sidebar-right">
-                    <div  class="widget w-tags">
-                        <div class="heading text-center">
-                            <h4 class="heading-title">ALL BLOG TAGS</h4>
-                            <div class="heading-line">
-                                <span class="short-line"></span>
-                                <span class="long-line"></span>
-                            </div>
-                        </div>
-
-                        <div class="tags-wrap">
-                            <a href="#" class="w-tags-item">SEO</a>
-                            <a href="#" class="w-tags-item">Advertising</a>
-                            <a href="#" class="w-tags-item">Business</a>
-                            <a href="#" class="w-tags-item">Optimization</a>
-                            <a href="#" class="w-tags-item">Digital Marketing</a>
-                            <a href="#" class="w-tags-item">Social</a>
-                            <a href="#" class="w-tags-item">Keyword</a>
-                            <a href="#" class="w-tags-item">Strategy</a>
-                            <a href="#" class="w-tags-item">Audience</a>
-                        </div>
-                    </div>
-                </aside>
-            </div>
+            @include('front.tags')
 
             <!-- End Sidebar-->
 

@@ -74,8 +74,8 @@
     <div class="container">
         <div class="row">
             <div class="form_search-wrap">
-                <form>
-                    <input class="overlay_search-input" placeholder="Type and hit Enter..." type="text">
+                <form id="search_form" name="search_form" method="get" action="{{ route('query') }}">
+                    <input class="overlay_search-input" name="query" placeholder="Type and hit Enter..." type="text">
                     <a href="#" class="overlay_search-close">
                         <span></span>
                         <span></span>
@@ -100,6 +100,8 @@
 <script src="{{ asset('front/js/velocity.min.js') }}"></script>
 <script src="{{ asset('front/js/ScrollMagic.min.js') }}"></script>
 <script src="{{ asset('front/js/animation.velocity.min.js') }}"></script>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-64148cc94640168a"></script>
 
 
 <!-- ...end JS Script -->

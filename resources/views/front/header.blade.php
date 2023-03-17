@@ -61,7 +61,7 @@
                         <ul class="primary-menu-menu" style="overflow: hidden;">
                             @foreach($menu_categories as $category)
                             <li class="">
-                                <a href="">{{ $category->name }}</a>
+                                <a href="{{ route('category.single',['id'=>$category->id]) }}">{{ $category->name }}</a>
                             </li>
                             @endforeach
                         </ul>
