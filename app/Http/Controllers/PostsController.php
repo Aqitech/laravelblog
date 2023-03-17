@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Session;
+use Auth;
 
 class PostsController extends Controller
 {
@@ -65,7 +66,8 @@ class PostsController extends Controller
             'slug' => str::snake($request->title, '-'),
             'feature_image' => $feature_image_new_name,
             'content' => $request->content,
-            'category_id' => $request->category_id
+            'category_id' => $request->category_id,
+            'user_id' => Auth::user()->id
         ]);
         $post->tags()->attach($request->tags);
         

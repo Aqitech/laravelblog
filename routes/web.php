@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
+Route::get('/{slug}', [FrontEndController::class, 'singlePost'])->name('post.single');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/dashboard', function () {

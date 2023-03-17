@@ -14,7 +14,7 @@ class Post extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'title','slug','feature_image','category_id','content'
+        'title','slug','feature_image','category_id','user_id','content'
     ];
 
     protected $dates = ['dateted_at'];
@@ -25,6 +25,11 @@ class Post extends Model
 
     public function category() {
         return $this->belongsTo(Category::class, 'category_id')->select('id', 'name');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id')->select('id', 'name');
     }
 
     public function tags() {
