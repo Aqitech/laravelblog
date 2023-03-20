@@ -28,7 +28,7 @@ Route::get('/query', [FrontEndController::class, 'query'])->name('query');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('admin.dashboard');
     })->name('dashboard');
 
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
